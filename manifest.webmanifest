@@ -1,0 +1,14 @@
+{
+  "name": "Montessori Makers Family Companion",
+  "short_name": "Family Companion",
+  "description": "The Montessori friend in your pocket — one question at a time, your child at the center.",
+  "start_url": "./Montessori%20Makers%20Family%20Companion.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f5efe1",
+  "theme_color": "#0e1a7a",
+  "icons": [
+    { "src": "assets/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "assets/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

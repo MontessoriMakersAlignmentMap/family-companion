@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "name": "family-companion",
+  "dependencies": {
+    "stripe": "^17.0.0",
+    "@supabase/supabase-js": "^2.49.0"
+  }
+}

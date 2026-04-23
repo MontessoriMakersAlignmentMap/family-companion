@@ -71,8 +71,8 @@ create policy "read own subscription"
 
 Two recurring prices on one product ("Family Companion"):
 
-- Monthly: $9/mo (placeholder — update pricing in `components/Subscription.jsx` to match)
-- Annual: $79/yr (placeholder — update pricing in `components/Subscription.jsx` to match)
+- Monthly: $12/mo
+- Annual: $99/yr
 
 Paste the price IDs into `netlify/functions/create-checkout.js` OR set env vars `FAMILY_MONTHLY_PRICE_ID` and `FAMILY_ANNUAL_PRICE_ID` in Netlify.
 

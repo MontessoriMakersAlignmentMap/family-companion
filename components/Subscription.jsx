@@ -111,13 +111,13 @@ function SubscriptionFlow({ session }) {
 
       <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
         <PricingCard
-          label="Monthly" price="$9" period="/month"
+          label="Monthly" price="$12" period="/month"
           onClick={() => handleCheckout('monthly')}
           disabled={busy}
         />
         <PricingCard
-          label="Annual" price="$79" period="/year"
-          badge="Save $29"
+          label="Annual" price="$99" period="/year"
+          badge="Save $45"
           onClick={() => handleCheckout('annual')}
           disabled={busy}
           featured

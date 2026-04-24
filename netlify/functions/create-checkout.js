@@ -5,8 +5,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 // TODO(hannah): create the Family Companion products in Stripe and paste the
 // price IDs here (or override via FAMILY_MONTHLY_PRICE_ID / FAMILY_ANNUAL_PRICE_ID).
 const PRICE_MAP = {
-  family_monthly: process.env.FAMILY_MONTHLY_PRICE_ID || 'price_REPLACE_FAMILY_MONTHLY',
-  family_annual:  process.env.FAMILY_ANNUAL_PRICE_ID  || 'price_REPLACE_FAMILY_ANNUAL',
+  family_monthly: process.env.FAMILY_MONTHLY_PRICE_ID || 'price_1TPj80PGvmx1ACnDXYjQ6a4y',
+  family_annual:  process.env.FAMILY_ANNUAL_PRICE_ID  || 'price_1TPj5CPGvmx1ACnDkgtVAMP3',
 };
 
 exports.handler = async (event) => {

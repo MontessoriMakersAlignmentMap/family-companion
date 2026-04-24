@@ -52,8 +52,10 @@ function App() {
     else if (t === 'practice') setScreen({ name: 'practice' });
   };
 
-  if (!sessionLoaded) return <CompanionSplash/>;
-  if (!session) return <Onboarding onDone={() => {}}/>;
+  const isDemo = localStorage.getItem('companion.demo') === '1';
+
+  if (!sessionLoaded && !isDemo) return <CompanionSplash/>;
+  if (!session && !isDemo) return <Onboarding onDone={() => {}}/>;
 
   return (
     <SubscriptionGate

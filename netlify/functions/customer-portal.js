@@ -37,7 +37,7 @@ exports.handler = async (event) => {
       return { statusCode: 404, headers, body: JSON.stringify({ error: 'No subscription found' }) };
     }
 
-    const baseUrl = process.env.URL || 'https://montessorimakersfamilycompanion.com';
+    const baseUrl = process.env.URL || 'https://www.montessorimakersfamilycompanion.com';
     const session = await stripe.billingPortal.sessions.create({
       customer: sub.stripe_customer_id,
       return_url: `${baseUrl}/Montessori%20Makers%20Family%20Companion.html`,

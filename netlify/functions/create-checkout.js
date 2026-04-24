@@ -36,7 +36,7 @@ exports.handler = async (event) => {
       return { statusCode: 400, headers, body: JSON.stringify({ error: 'Missing user_id or user_email' }) };
     }
 
-    const baseUrl = process.env.URL || 'https://montessorimakersfamilycompanion.com';
+    const baseUrl = process.env.URL || 'https://www.montessorimakersfamilycompanion.com';
     const appPath = '/Montessori%20Makers%20Family%20Companion.html';
 
     const session = await stripe.checkout.sessions.create({

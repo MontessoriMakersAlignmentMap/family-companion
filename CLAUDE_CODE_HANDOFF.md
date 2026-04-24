@@ -38,34 +38,15 @@ family-companion/
 
 ## Storage model (matches Meridian / Field Guide)
 
-- **Auth** — Supabase Auth, Google OAuth + email magic link. Shared project `lroxicwzhtzaitfkvzlv`. Storage key `companion.session`.
-- **Subscriptions** — table `family_companion_subscriptions` in the same Supabase project. Gate in `components/Subscription.jsx` uses `isSubscriptionActive`.
+- **Auth** — Supabase Auth, Google OAuth + email magic link. Dedicated project `kyfrtjffctdjbkkmmdua` (fully isolated from MMAP/Field Guide/Meridian — parents can never reach school data). Storage key `companion.session`.
+- **Subscriptions** — table `family_companion_subscriptions` already created with RLS. Gate in `components/Subscription.jsx` uses `isSubscriptionActive`.
 - **App data** — children, journal observations, playbook progress, transitions, room checklists — all `localStorage`, same as the prototype. Local-first. Sync is future work.
 
 ## Before deploying to production
 
-### 1. Supabase — create the subscriptions table
+### 1. Supabase — already done
 
-Add to the shared Supabase project (same DDL as `leadership_meridian_subscriptions`):
-
-```sql
-create table family_companion_subscriptions (
-  user_id uuid primary key references auth.users(id) on delete cascade,
-  stripe_customer_id text,
-  stripe_subscription_id text unique,
-  status text,
-  billing_interval text,
-  current_period_start timestamptz,
-  current_period_end timestamptz,
-  updated_at timestamptz default now()
-);
-
-alter table family_companion_subscriptions enable row level security;
-
-create policy "read own subscription"
-  on family_companion_subscriptions for select
-  using (auth.uid() = user_id);
-```
+Dedicated project `kyfrtjffctdjbkkmmdua` created. `family_companion_subscriptions` table + RLS policy already applied. You still need to enable **Google OAuth** in the Supabase dashboard: Authentication → Providers → Google.
 
 ### 2. Stripe — create products
 
@@ -81,7 +62,7 @@ Paste the price IDs into `netlify/functions/create-checkout.js` OR set env vars 
 ```
 STRIPE_SECRET_KEY=sk_live_...
 STRIPE_WEBHOOK_SECRET=whsec_...
-SUPABASE_URL=https://lroxicwzhtzaitfkvzlv.supabase.co
+SUPABASE_URL=https://kyfrtjffctdjbkkmmdua.supabase.co
 SUPABASE_SERVICE_ROLE_KEY=...             # service role, not anon
 RESEND_API_KEY=re_...                     # optional — for new-subscriber notification
 FAMILY_MONTHLY_PRICE_ID=price_...

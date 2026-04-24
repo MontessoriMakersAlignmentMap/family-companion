@@ -1,10 +1,10 @@
 // Supabase client + sync layer for Family Companion.
-// Same shared project as MMAP / Field Guide / Leadership Meridian.
-// Auth + subscription live in Supabase. Journal/children/progress live in localStorage
-// (same local-first pattern as Meridian events).
+// Dedicated project — fully isolated from MMAP, Field Guide, and Leadership Meridian.
+// Parents can never reach school-side data. Auth + subscription live here.
+// Journal/children/progress live in localStorage (local-first).
 
-const SUPABASE_URL = 'https://lroxicwzhtzaitfkvzlv.supabase.co';
-const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxyb3hpY3d6aHR6YWl0Zmt2emx2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA5ODk4MTUsImV4cCI6MjA3NjU2NTgxNX0.c8BzXXiY3GJwfVwhMZqRcZR7c8AJ6B2vJ5A0dj_5x1M';
+const SUPABASE_URL = 'https://kyfrtjffctdjbkkmmdua.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt5ZnJ0amZmY3RkamJra21tZHVhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY5OTEyNjcsImV4cCI6MjA5MjU2NzI2N30.jad1E_2XAveOARWcS2PPkzjLi4_ik5TmLBth0u6vy7g';
 
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
   auth: { persistSession: true, autoRefreshToken: true, storageKey: 'companion.session' },

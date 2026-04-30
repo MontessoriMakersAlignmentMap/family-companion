@@ -8,19 +8,25 @@ function Onboarding({ onDone }) {
 
   const slides = [
     {
-      eyebrow: 'Welcome',
-      headline: 'It’s late. Whatever brought you here, you’re not doing it wrong.',
-      body: 'Family Companion is the Montessori friend in your pocket — when the toddler won’t sleep, when the cereal aisle implodes, when the teacher says something that rattles you. Open it when you need a steady voice.',
+      eyebrow: ‘Welcome’,
+      headline: ‘It’s late. Whatever brought you here, you’re not doing it wrong.’,
+      body: ‘Family Companion is the Montessori friend in your pocket — when the toddler won’t sleep, when the cereal aisle implodes, when the teacher says something that rattles you. Open it when you need a steady voice.’,
     },
     {
-      eyebrow: 'How it works',
-      headline: 'One question at a time. Your child at the center.',
-      body: 'Pick the worry that brought you here — is my child learning, are they on track, what happens in the classroom, how do I help at home. Read one article written for your child’s age. Try one thing this week.',
+      eyebrow: ‘How it works’,
+      headline: ‘One question at a time. Your child at the center.’,
+      body: ‘Pick the worry that brought you here — is my child learning, are they on track, what happens in the classroom, how do I help at home. Read one article written for your child’s age. Try one thing this week.’,
     },
     {
-      eyebrow: 'Your account',
-      headline: 'Sign in to keep your journal and observations.',
-      body: 'Your child’s profile, the things you notice, the playbooks you save — they stay with you across your phone, tablet, and laptop.',
+      eyebrow: ‘Add to your phone’,
+      headline: ‘Keep it one tap away.’,
+      body: ‘Family Companion works like a native app when you add it to your home screen. No app store, no updates to manage.’,
+      isPwa: true,
+    },
+    {
+      eyebrow: ‘Your account’,
+      headline: ‘Sign in to keep your journal and observations.’,
+      body: ‘Your child’s profile, the things you notice, the playbooks you save — they stay with you across your phone, tablet, and laptop.’,
       isAuth: true,
     },
   ];
@@ -54,6 +60,7 @@ function Onboarding({ onDone }) {
           color: 'var(--ink-body, #4a4d60)', margin: 0, marginBottom: 32,
         }}>{s.body}</p>
 
+        {s.isPwa && <PwaSlide/>}
         {s.isAuth && <AuthSlide/>}
       </div>
 
@@ -79,6 +86,64 @@ function Onboarding({ onDone }) {
         </div>
       )}
     </div>
+  );
+}
+
+function PwaSlide() {
+  const isIos = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isAndroid = /android/i.test(navigator.userAgent);
+
+  if (isIos) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <Step n={1} text='Tap the Share button at the bottom of your browser (the box with an arrow).'/>
+        <Step n={2} text='Scroll down and tap Add to Home Screen.'/>
+        <Step n={3} text='Tap Add. Family Companion appears on your home screen like any other app.'/>
+        <Note text='Works in Safari. If you are using Chrome on iPhone, tap the three-dot menu and choose Add to Home Screen.'/>
+      </div>
+    );
+  }
+  if (isAndroid) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+        <Step n={1} text='Tap the three-dot menu in the top-right corner of Chrome.'/>
+        <Step n={2} text='Tap Add to Home Screen or Install App.'/>
+        <Step n={3} text='Tap Add. Family Companion will appear on your home screen.'/>
+        <Note text='You may see an Install App banner appear automatically at the bottom of the screen. That works too.'/>
+      </div>
+    );
+  }
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+      <Step n={1} text='On iPhone: tap the Share button in Safari, then Add to Home Screen.'/>
+      <Step n={2} text='On Android: tap the three-dot menu in Chrome, then Add to Home Screen.'/>
+      <Note text='On desktop, look for an install icon in your browser address bar.'/>
+    </div>
+  );
+}
+
+function Step({ n, text }) {
+  return (
+    <div style={{ display: 'flex', gap: 14, alignItems: 'flex-start' }}>
+      <div style={{
+        flexShrink: 0, width: 28, height: 28, borderRadius: '50%',
+        background: 'var(--ink, #0e1a7a)', color: '#fff',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        fontSize: 13, fontWeight: 700,
+      }}>{n}</div>
+      <p style={{ margin: 0, fontSize: 14.5, lineHeight: 1.55, color: 'var(--ink-body, #4a4d60)', paddingTop: 4 }}>{text}</p>
+    </div>
+  );
+}
+
+function Note({ text }) {
+  return (
+    <div style={{
+      padding: '12px 14px', marginTop: 4,
+      background: 'var(--bg-cream, #f4efe5)',
+      borderLeft: '2px solid var(--gold, #d6a758)',
+      fontSize: 13, lineHeight: 1.5, color: 'var(--ink-body, #4a4d60)',
+    }}>{text}</div>
   );
 }
 

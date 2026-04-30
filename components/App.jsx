@@ -37,7 +37,8 @@ function App() {
     if (a && a.age !== ageId) setAgeId(a.age);
     setScreen({ name: 'article', articleId });
   };
-  const openExtra = (exId) => alert('Extra section content is coming soon: ' + exId);
+  const [comingSoon, setComingSoon] = useState(null);
+  const openExtra = (exId) => setComingSoon(exId);
 
   const switchChild = (id) => {
     window.State.setActiveChildId(id);
@@ -52,7 +53,7 @@ function App() {
     else if (t === 'practice') setScreen({ name: 'practice' });
   };
 
-  const isDemo = localStorage.getItem('companion.demo') === '1';
+  const isDemo = new URLSearchParams(window.location.search).get('preview') === '1';
 
   if (!sessionLoaded && !isDemo) return <CompanionSplash/>;
   if (!session && !isDemo) return <Onboarding onDone={() => {}}/>;
@@ -83,6 +84,8 @@ function App() {
         openExtra={openExtra}
         switchChild={switchChild}
         onTabChange={onTabChange}
+        comingSoon={comingSoon}
+        setComingSoon={setComingSoon}
       />
     </SubscriptionGate>
   );
@@ -94,6 +97,7 @@ function AppShell(props) {
     ageId, setAgeId, searchOpen, setSearchOpen,
     addChildOpen, setAddChildOpen, bump,
     openEp, openArticle, openExtra, switchChild, onTabChange,
+    comingSoon, setComingSoon,
   } = props;
 
   if (children.length === 0) {
@@ -221,6 +225,58 @@ function AppShell(props) {
 
       {addChildOpen && (
         <AddChildModal onClose={(added) => { setAddChildOpen(false); if (added) bump(); }} />
+      )}
+
+      {comingSoon && (
+        <div
+          onClick={() => setComingSoon(null)}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 200,
+            background: 'rgba(14,26,122,0.32)',
+            display: 'flex', alignItems: 'flex-end',
+          }}
+        >
+          <div
+            onClick={e => e.stopPropagation()}
+            style={{
+              width: '100%', background: '#fff',
+              padding: '28px 24px 44px',
+              borderRadius: '18px 18px 0 0',
+              boxShadow: '0 -4px 24px rgba(14,26,122,0.12)',
+            }}
+          >
+            <div style={{
+              width: 36, height: 4, borderRadius: 2,
+              background: 'rgba(14,26,122,0.15)',
+              margin: '0 auto 24px',
+            }}/>
+            <div style={{
+              fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase',
+              color: 'var(--gold, #d6a758)', marginBottom: 10, fontWeight: 600,
+            }}>Coming soon</div>
+            <h3 style={{
+              fontFamily: 'var(--font-heading, Georgia, serif)', fontWeight: 400,
+              fontSize: 22, lineHeight: 1.2, color: 'var(--ink, #0e1a7a)',
+              margin: '0 0 12px',
+            }}>More on this topic is on its way.</h3>
+            <p style={{
+              fontSize: 14.5, lineHeight: 1.6,
+              color: 'var(--ink-body, #4a4d60)', margin: '0 0 24px',
+            }}>
+              This section is still being written. Check back soon.
+            </p>
+            <button
+              onClick={() => setComingSoon(null)}
+              style={{
+                width: '100%', padding: '14px',
+                background: 'var(--ink, #0e1a7a)', color: '#fff',
+                border: 'none', borderRadius: 10,
+                fontSize: 14, fontWeight: 600, cursor: 'pointer',
+                letterSpacing: '0.02em',
+              }}
+            >Got it</button>
+          </div>
+        </div>
       )}
     </div>
   );
